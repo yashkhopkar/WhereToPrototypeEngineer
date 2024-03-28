@@ -1,0 +1,85 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  gap: 0;
+  width: 90%;
+}
+
+.gallery {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.album-covers {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  margin: 0;
+  background-color: #e6e6e6;
+  border: 1px solid #000;
+  padding: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.album-covers img {
+  max-width: 100px;
+  margin: 0 10px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.album-covers img.selected {
+  border: 1px solid black;
+}
+
+button {
+  background: silver;
+  border: 1px solid #000;
+  font-size: 24px;
+  cursor: pointer;
+  width: 40px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+button:first-of-type {
+  margin-right: 10px;
+}
+
+button:last-of-type {
+  margin-left: 10px;
+}
+
+.album-details {
+  width: 80%;
+  border: 1px solid black;
+  border-top: none;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.album-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.album-details th,
+.album-details td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: left;
+}
+
+.album-details th {
+  background-color: silver;
+}
