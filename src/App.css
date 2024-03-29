@@ -30,11 +30,14 @@
 .album-covers img {
   max-width: 100px;
   margin: 0 10px;
+  border: 1px solid #000;
   transition: transform 0.5s ease-in-out;
 }
 
 .album-covers img.selected {
   border: 1px solid black;
+  box-shadow: 0 0 0 2px white;
+  margin: 0 6px;
 }
 
 button {
@@ -82,4 +85,5 @@ button:last-of-type {
 
 .album-details th {
   background-color: silver;
+  text-align: center;
 }

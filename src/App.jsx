@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './App.css';
 
 const apiBaseUrl = 'http://demo.subsonic.org/rest/';
@@ -8,6 +8,8 @@ function App() {
   const [albums, setAlbums] = useState([]);
   const [selectedAlbumIndex, setSelectedAlbumIndex] = useState(0);
   const [albumDetails, setAlbumDetails] = useState(null);
+  const [albumCoversWidth, setAlbumCoversWidth] = useState(0);
+  const albumCoversRef = useRef(null);
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -23,6 +25,10 @@ function App() {
 
     fetchAlbums();
   }, []);
+
+  useEffect(() => {
+    setAlbumCoversWidth(albumCoversRef.current.offsetWidth);
+  }, [setAlbumCoversWidth]);
 
   const fetchAlbumDetails = async (albumId) => {
     const response = await fetch(
@@ -43,14 +49,20 @@ function App() {
     return `${apiBaseUrl}getCoverArt?${credentials}&id=${coverArtId}&size=100`;
   };
 
+  const getTransform = () => {
+    const imageWidth = 100;
+    const offset = (albumCoversWidth - imageWidth) / 2;
+    return `translateX(${offset - selectedAlbumIndex * imageWidth}px)`;
+  };
+
   return (
     <div className='App'>
       <div className='gallery'>
-        <button
-          onClick={() => selectAlbum(-1)}
-          dangerouslySetInnerHTML={{ __html: '&lArr;' }}
-        />
-        <div className='album-covers'>
+        <button onClick={() => selectAlbum(-1)}>{'\u21D0'}</button>
+        <div
+          className='album-covers'
+          ref={albumCoversRef}
+        >
           {albums.map((album, index) => (
             <img
               key={album.id}
@@ -58,16 +70,13 @@ function App() {
               alt={album.name}
               className={index === selectedAlbumIndex ? 'selected' : ''}
               style={{
-                transform: `translateX(-${selectedAlbumIndex * 100}%)`,
+                transform: getTransform(),
                 transition: 'transform 0.5s ease-in-out',
               }}
             />
           ))}
         </div>
-        <button
-          onClick={() => selectAlbum(1)}
-          dangerouslySetInnerHTML={{ __html: '&rArr;' }}
-        />
+        <button onClick={() => selectAlbum(1)}>{'\u21D2'}</button>
       </div>
       {albumDetails && (
         <div className='album-details'>
